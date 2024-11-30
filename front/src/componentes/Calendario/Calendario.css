@@ -1,0 +1,35 @@
+.rbc-calendar {
+    font-family: Arial, sans-serif;
+  }
+  
+  .rbc-month-view {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  .rbc-event {
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    padding: 2px 5px;
+  }
+  
+  .rbc-toolbar {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .rbc-toolbar button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .rbc-toolbar button:hover {
+    background-color: #0056b3;
+  }
+  

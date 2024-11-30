@@ -5,6 +5,7 @@ function Navbar (){
         <nav className='nav'>
             <ul>
                 <li><Link to= "/"> Inicio</Link></li>
+                <li><Link to= "/calendario">Fechas Importantes</Link></li>
             </ul>
         </nav>
     )

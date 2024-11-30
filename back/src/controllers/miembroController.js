@@ -23,7 +23,6 @@ exports.listarMiembros = async (req, res) => {
   }
 };
 
-
 // Función para crear un miembro
 const crearMiembro = async (req, res) => {
   try {
@@ -64,12 +63,6 @@ const crearMiembro = async (req, res) => {
       res.redirect('/miembros');
   }
 };
-
-
-
-  
-
-
 
 const editarMiembroForm = async (req, res) => {
   try {
