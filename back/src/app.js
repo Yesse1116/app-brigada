@@ -1,12 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const exphbs = require("express-handlebars");
 const dotenv = require("dotenv");
-const path = require("path");
-const flash = require("connect-flash");
+const cors = require('cors');
 const session = require("express-session");
-const hbs = require("hbs");
-
 
 // Cargar variables de entorno
 dotenv.config();
@@ -14,62 +10,31 @@ dotenv.config();
 // Inicializar Express
 const app = express();
 
-// Configuración de Handlebars
-app.engine(
-  "hbs",
-  exphbs.engine({
-    extname: ".hbs",
-    runtimeOptions: {
-      allowProtoPropertiesByDefault: true,
-      allowProtoMethodsByDefault: true,
-    },
-    helpers: {
-      formatDate: (date) => {
-        if (!date) return ""; // Maneja fechas nulas
-        const options = { year: "numeric", month: "2-digit", day: "2-digit" };
-        return new Date(date).toLocaleDateString("es-ES", options);
-      },
-    },
-  })
-);
-app.set("view engine", "hbs");
-app.set("views", path.join(__dirname, "views"));
-
-// Registro de helpers adicionales
-hbs.registerHelper('ifCond', function (v1, v2, options) {
-  return v1 === v2 ? options.fn(this) : options.inverse(this);
-});
-hbs.registerHelper('eq', (a, b) => {
-    return a === b;
-});
-
-// Middlewares
+// Configuración de Middlewares
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Configuración de sesión y Flash
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET || "mi_secreto",
-    resave: false,
-    saveUninitialized: false, // No crea sesiones vacías
-  })
-);
-app.use(flash());
+// Configurar CORS
+app.use(cors({
+    origin: process.env.CLIENT_URL || "*", // Ajustar para restringir dominios en producción
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true, // Habilitar el uso de cookies con CORS
+}));
 
-// Middleware para mensajes flash y sesión de usuario
-app.use((req, res, next) => {
-  res.locals.success = req.flash("success");
-  res.locals.error = req.flash("error");
-  res.locals.usuario = req.session && req.session.usuario ? req.session.usuario : null; // Usuario logueado
-  next();
-});
+// Configuración de sesión
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET || "mi_secreto",
+        resave: false,
+        saveUninitialized: false, // No crea sesiones vacías
+    })
+);
 
 // Conexión a MongoDB
 mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("Conectado a MongoDB para la App Brigada"))
-  .catch((err) => console.error("Error al conectar:", err));
+    .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log("Conectado a MongoDB para la App Brigada"))
+    .catch((err) => console.error("Error al conectar:", err));
 
 // Importar rutas
 const authRoutes = require('./routes/authRoutes');
@@ -79,23 +44,40 @@ const adminRoutes = require('./routes/adminRoutes');
 // Registrar rutas
 app.use("/auth", authRoutes);
 app.use("/miembros", miembroRoutes);
-// Rutas de administración
 app.use("/admin", adminRoutes);
 
 // Ruta principal
 app.get('/', (req, res) => {
-  if (!req.session.usuario) {
-    return res.redirect('/auth/login'); // Redirige al login si no está logueado
-  }
+    if (!req.session.usuario) {
+        return res.status(401).json({
+            success: false,
+            message: "Debes iniciar sesión para acceder a esta página.",
+        });
+    }
 
-  if (req.session.usuario.rol === 'administrador') {
-    return res.render('admin/dashboard', { usuario: req.session.usuario });
-  }
+    if (req.session.usuario.rol === 'administrador') {
+        return res.status(200).json({
+            success: true,
+            message: "Bienvenido al panel de administración.",
+            usuario: req.session.usuario,
+        });
+    }
 
-  // Para usuarios normales
-  res.render('usuario/dashboard', { usuario: req.session.usuario });
+    // Para usuarios normales
+    res.status(200).json({
+        success: true,
+        message: "Bienvenido al panel de usuario.",
+        usuario: req.session.usuario,
+    });
 });
 
+// Manejo de errores para rutas no encontradas
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        message: "Ruta no encontrada.",
+    });
+});
 
 // Exportar la aplicación
 module.exports = app;

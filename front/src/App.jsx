@@ -4,7 +4,9 @@ import Footer from './componentes/Footer/Footer'
 import Navbar from './componentes/Navbar/Navbar'
 import Seccion from './componentes/Seccion/seccion';
 import './App.css'
-import Carrusel from './componentes/Carrussel/carrusel';
+import Calendario from './componentes/Calendario/calendario';
+import Login from './componentes/Auth/Login';
+import Register from './componentes/Auth/Register';
 
 function App() {
 
@@ -16,8 +18,10 @@ function App() {
         <Navbar /> 
         <main>
           <Routes>
+            <Route path='/login'element= {<Login />}/>
+            <Route path='/register'element= {<Register />}/>
           <Route path="/" element={<Seccion />}/>
-          <Route path='/calendario' element={<Carrusel />}/>
+          <Route path='/calendario' element={<Calendario />}/>
           </Routes>
         </main>
         <Footer />

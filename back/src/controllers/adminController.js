@@ -6,19 +6,23 @@ exports.listarUsuarios = async (req, res) => {
         const usuarios = await Usuario.find();
 
         // Agrega un campo para identificar el rol actual y predefinir opciones de rol
-        const usuariosConRoles = usuarios.map(usuario => {
-            return {
-                ...usuario.toObject(),
-                esAdministrador: usuario.rol === 'administrador',
-                esUsuarioNormal: usuario.rol === 'normal',
-            };
-        });
+        const usuariosConRoles = usuarios.map(usuario => ({
+            ...usuario.toObject(),
+            esAdministrador: usuario.rol === 'administrador',
+            esUsuarioNormal: usuario.rol === 'normal',
+        }));
 
-        res.render('admin/usuarios', { usuarios: usuariosConRoles });
+        res.status(200).json({
+            success: true,
+            data: usuariosConRoles,
+        });
     } catch (err) {
         console.error('Error al listar usuarios:', err);
-        req.flash('error', 'Error al cargar los usuarios.');
-        res.redirect('/');
+        res.status(500).json({
+            success: false,
+            message: 'Error al cargar los usuarios.',
+            error: err.message,
+        });
     }
 };
 
@@ -35,15 +39,23 @@ exports.cambiarRol = async (req, res) => {
         );
 
         if (!usuario) {
-            req.flash('error', 'Usuario no encontrado.');
-            return res.redirect('/admin/usuarios');
+            return res.status(404).json({
+                success: false,
+                message: 'Usuario no encontrado.',
+            });
         }
 
-        req.flash('success', `El rol de ${usuario.nombre} ha sido actualizado a ${nuevoRol}.`);
-        res.redirect('/admin/usuarios');
+        res.status(200).json({
+            success: true,
+            message: `El rol de ${usuario.nombre} ha sido actualizado a ${nuevoRol}.`,
+            data: usuario,
+        });
     } catch (err) {
         console.error('Error al cambiar rol:', err);
-        req.flash('error', 'Ocurrió un error al cambiar el rol.');
-        res.redirect('/admin/usuarios');
+        res.status(500).json({
+            success: false,
+            message: 'Ocurrió un error al cambiar el rol.',
+            error: err.message,
+        });
     }
 };

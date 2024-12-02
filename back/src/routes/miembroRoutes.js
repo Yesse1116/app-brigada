@@ -1,17 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const { listarMiembros, crearMiembro, editarMiembroForm, actualizarMiembro, eliminarMiembro } = require('../controllers/miembroController');
-const miembroController = require('../controllers/miembroController');
-const { verificarAdministrador, verificarUsuarioLogueado } = require('../middleware/authMiddleware');
+const {
+    listarMiembros,
+    crearMiembro,
+    actualizarMiembro,
+    eliminarMiembro,
+} = require('../controllers/miembroController');
 
-// Rutas accesibles para todos los usuarios logueados
-//router.get('/', verificarUsuarioLogueado, miembroController.listarMiembros);
+const { verificarAdministrador } = require('../middleware/authMiddleware');
 
 // Todas las rutas están restringidas a administradores
-router.get('/', verificarAdministrador, miembroController.listarMiembros);
-router.post('/crear', verificarAdministrador, miembroController.crearMiembro);
-router.post('/eliminar/:id', verificarAdministrador, miembroController.eliminarMiembro);
-router.get('/editar/:id', verificarAdministrador, miembroController.editarMiembroForm);
-router.post('/actualizar/:id', verificarAdministrador, miembroController.actualizarMiembro);
+router.get('/', verificarAdministrador, listarMiembros); // Listar miembros
+router.post('/', verificarAdministrador, crearMiembro); // Crear miembro
+router.put('/:id', verificarAdministrador, actualizarMiembro); // Actualizar miembro
+router.delete('/:id', verificarAdministrador, eliminarMiembro); // Eliminar miembro
 
 module.exports = router;
