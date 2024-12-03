@@ -3,6 +3,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import Navbar from "../Navbar/Navbar";
 
 const Calendario = () => {
   const [events, setEvents] = useState([
@@ -18,6 +19,8 @@ const Calendario = () => {
   };
 
   return (
+    <div>
+    <Navbar />
     <FullCalendar
       plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"
@@ -25,6 +28,7 @@ const Calendario = () => {
       dateClick={handleDateClick}
       editable={true}
     />
+    </div>
   );
 };
 

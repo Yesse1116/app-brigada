@@ -15,7 +15,7 @@ const Register = () => {
         await api.post("/auth/register", 
         {nombre,correo,contraseña,fechaNacimiento,});
       alert("Registro exitoso");
-      navigate("/login"); // Redirige al login después del registro
+      navigate("/auth/login"); // Redirige al login después del registro
     } catch (error) {
       alert( "Error al registrarse"+ error.response.data);
     }
