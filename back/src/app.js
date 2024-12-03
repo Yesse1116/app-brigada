@@ -22,17 +22,16 @@ app.use(cors({
 }));
 
 // Configuración de sesión
-app.use(
-    session({
-        secret: process.env.SESSION_SECRET || "mi_secreto",
-        resave: false,
-        saveUninitialized: false, // No crea sesiones vacías
-    })
+app.use(session({
+    secret: process.env.SESSION_SECRET || "mi_secreto",
+    resave: false,
+    saveUninitialized: false, // No crea sesiones vacías
+})
 );
 
 // Conexión a MongoDB
 mongoose
-    .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(process.env.MONGO_URI)
     .then(() => console.log("Conectado a MongoDB para la App Brigada"))
     .catch((err) => console.error("Error al conectar:", err));
 
