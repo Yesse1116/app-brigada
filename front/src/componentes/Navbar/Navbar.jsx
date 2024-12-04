@@ -17,6 +17,7 @@ function Navbar() {
             <ul>
                 <li><Link to="/sesion">Inicio</Link></li>
                 <li><Link to="/calendario">Fechas Importantes</Link></li>
+                <li><Link to="/admin/miembros">Administrador</Link></li>
                 <li><Link to="/auth/login" onClick={handleLogout}> Cerrar Sesion</Link></li>
             </ul>
         </nav>

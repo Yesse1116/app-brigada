@@ -47,7 +47,7 @@ body {
     margin-top: 5px;
     border: 1px solid #ffcc00;
     border-radius: 4px;
-    background-color: #2c2c2c;
+    background-color: #2a2a2b;
     color: white;
   }
   
@@ -65,7 +65,7 @@ body {
     padding: 10px;
     margin: 10px;
     background-color: #ffcc00;
-    color: black;
+    color: rgb(230, 16, 16);
     font-size: 16px;
     /*border: none;*/
     border-radius: 5px;

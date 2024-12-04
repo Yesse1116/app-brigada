@@ -1,11 +1,11 @@
-.carousel {
+/*.carousel {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 20px auto;
   max-width: 100%; 
   overflow: hidden;
-}
+}*/
 
 .carousel-image {
   max-width: 100%;
@@ -107,7 +107,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    background-color: #1b1b1b;
+    background-color: #c5c6d6;
     border-radius: 10px;
     padding: 20px;
     max-width: 90%;
