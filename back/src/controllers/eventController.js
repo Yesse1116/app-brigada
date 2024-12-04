@@ -35,8 +35,29 @@ const deleteEvent = async (req, res) => {
   }
 };
 
+// Actualizar un evento
+const updateEvent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, start, end } = req.body;
+
+    // Buscar el evento por ID y actualizarlo
+    const updatedEvent = await Event.findByIdAndUpdate(id, { title, start, end }, { new: true });
+
+    if (!updatedEvent) {
+      return res.status(404).json({ message: "Evento no encontrado" });
+    }
+
+    res.json(updatedEvent);
+  } catch (error) {
+    console.error("Error al actualizar el evento:", error);
+    res.status(500).json({ message: "Error al actualizar el evento", error });
+  }
+};
+
 module.exports = {
   getAllEvents,
   createEvent,
   deleteEvent,
-};
+  updateEvent, 
+}
