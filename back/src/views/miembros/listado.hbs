@@ -14,26 +14,6 @@
 {{/if}}
 
 
-<!-- Listado en formato <ul> -->
-<!-- Listado en formato <ul> -->
-<ul>
-    {{#each miembros}}
-        <li>
-            <strong>Nombre:</strong> {{this.nombre}} <br>
-            <strong>Correo:</strong> {{this.correo}} <br>
-            <strong>Fecha de Nacimiento:</strong> {{formatDate this.fechaNacimiento}} <br>
-            {{#if this.userId}}
-                <strong>Usuario Registrado:</strong> Registrado como {{this.userId.nombre}}
-            {{else}}
-                <strong>Usuario Registrado:</strong> No registrado
-            {{/if}}
-            <br>
-            <form action="/miembros/eliminar/{{this._id}}" method="POST" style="display:inline;">
-                <button type="submit">Eliminar</button>
-            </form>
-        </li>
-    {{/each}}
-</ul>
 
 <!-- Formulario para Agregar Miembro -->
 <form action="/miembros/crear" method="POST">

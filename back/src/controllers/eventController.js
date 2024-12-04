@@ -13,11 +13,13 @@ const getAllEvents = async (req, res) => {
 // Crear un nuevo evento
 const createEvent = async (req, res) => {
   try {
+    console.log("Datos recibidos:", req.body); // Log para depurar
     const { title, start, end } = req.body;
     const newEvent = new Event({ title, start, end });
-    await newEvent.save();
-    res.status(201).json(newEvent);
+    const savedEvent = await newEvent.save();
+    res.status(201).json(savedEvent);
   } catch (error) {
+    console.error("Error al crear el evento:", error); // Log del error
     res.status(400).json({ message: "Error al crear el evento", error });
   }
 };

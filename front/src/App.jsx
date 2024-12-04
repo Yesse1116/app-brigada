@@ -7,6 +7,7 @@ import Login from './componentes/Auth/Login';
 import Register from './componentes/Auth/Register';
 import { AuthProvider } from './componentes/Auth/authContext';
 import { Navigate } from 'react-router-dom';
+import AdminDashboard from './componentes/Admin/Dashboard';
 
 function App() {
 
@@ -20,7 +21,7 @@ function App() {
             <Route path="/auth/login" element={<Login />}/>
             <Route path='/sesion'element= {<Sesion />}/>
             <Route path='/auth/register'element= {<Register />}/>
-            
+            <Route path='/admin'element= {< AdminDashboard/>}/>
             <Route path='/calendario' element={<Calendario />}/>
             </Routes>
         </main>

@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require('cors');
 const session = require("express-session");
+const bodyParser =require ('body-parser')
 
 // Cargar variables de entorno
 dotenv.config();
@@ -16,7 +17,7 @@ app.use(express.json());
 
 // Configurar CORS
 app.use(cors({
-    origin: process.env.CLIENT_URL || "*", // Ajustar para restringir dominios en producción
+    origin: 'http://localhost:5173',
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true, // Habilitar el uso de cookies con CORS
 }));
@@ -28,6 +29,7 @@ app.use(session({
     saveUninitialized: false, // No crea sesiones vacías
 })
 );
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Conexión a MongoDB
 mongoose
@@ -39,11 +41,14 @@ mongoose
 const authRoutes = require('./routes/authRoutes');
 const miembroRoutes = require("./routes/miembroRoutes");
 const adminRoutes = require('./routes/adminRoutes');
+const eventRoutes = require('./routes/eventRoutes')
 
 // Registrar rutas
 app.use("/auth", authRoutes);
 app.use("/miembros", miembroRoutes);
 app.use("/admin", adminRoutes);
+app.use("/calendario", eventRoutes);
+
 
 // Ruta principal
 app.get('/', (req, res) => {

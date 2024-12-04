@@ -1,35 +1,25 @@
-.rbc-calendar {
-    font-family: Arial, sans-serif;
-  }
-  
-  .rbc-month-view {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-  }
-  
-  .rbc-event {
-    background-color: #007bff;
-    color: white;
-    border-radius: 4px;
-    padding: 2px 5px;
-  }
-  
-  .rbc-toolbar {
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  
-  .rbc-toolbar button {
-    margin: 0 5px;
-    padding: 5px 10px;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .rbc-toolbar button:hover {
-    background-color: #0056b3;
-  }
+.calendar-container {
+  padding: 20px;
+  max-width: 100%; /* Asegura que el contenedor use todo el espacio disponible */
+  margin: 0 auto;
+  overflow-x: auto; /* Permite scroll horizontal si es necesario */
+}
+
+.fc {
+  font-size: 1.2rem;
+  min-width: 900px; /* Establece un ancho mínimo para evitar que se corte el sábado */
+}
+
+.fc-toolbar-title {
+  font-size: 1.5rem;
+}
+
+.fc-daygrid-event {
+  padding: 5px 10px;
+}
+
+.fc-scrollgrid {
+  border: none;
+}
+
   

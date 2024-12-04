@@ -1,6 +1,7 @@
 import React from "react";
 import Carrusel from "../Carrussel/carrusel";
 import Header from "../Header/Header";
+import './sesion.css';
 
 function Sesion() {
   return (
