@@ -1,19 +1,21 @@
-exports.verificarAdministrador = (req, res, next) => {
-    // Verificar si el usuario está logueado
+const verificarAdministrador = (req, res, next) => {
+    // Verifica si hay un usuario autenticado
     if (!req.session.usuario) {
         return res.status(401).json({
             success: false,
-            message: 'Debes iniciar sesión para acceder a esta página.',
+            message: 'No autorizado. Por favor, inicie sesión.'
         });
     }
 
-    // Verificar si el usuario tiene rol de administrador
+    // Verifica si el usuario tiene el rol de administrador
     if (req.session.usuario.rol !== 'administrador') {
         return res.status(403).json({
             success: false,
-            message: 'No tienes permisos para acceder a esta página.',
+            message: 'Acceso denegado. Solo administradores pueden realizar esta acción.'
         });
     }
 
-    next(); // Continúa si el usuario es administrador
+    next(); // Si todo es correcto, continúa con la solicitud
 };
+
+module.exports = { verificarAdministrador };

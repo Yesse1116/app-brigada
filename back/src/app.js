@@ -15,6 +15,16 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.get("/usuarios", (req, res) => {
+    const session = { user: { nombre: "lucianoAdmin", rol: "administrador" } }; // Simula una sesión
+  
+    if (session) {
+      res.status(200).json({ success: true, usuario: session.user }); // Cambia `session` a `usuario`
+    } else {
+      res.status(404).json({ success: false, message: "Sesión no encontrada" });
+    }
+  });
+  
 // Configurar CORS
 app.use(cors({
     origin: 'http://localhost:5173',
@@ -24,9 +34,10 @@ app.use(cors({
 
 // Configuración de sesión
 app.use(session({
-    secret: process.env.SESSION_SECRET || "mi_secreto",
+    secret: 'tu-secreto-aqui',
     resave: false,
-    saveUninitialized: false, // No crea sesiones vacías
+    saveUninitialized: true,
+    cookie: { secure: false }
 })
 );
 app.use(bodyParser.urlencoded({ extended: true }));

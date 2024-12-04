@@ -54,4 +54,6 @@ DELETE /api/hechizos/:id - Elimina un hechizo por ID.
 
 YES,  NECESITO QUE TE FIJES VOS LO DE ADMIN, ahora subo el repo y te fijas???????
 dale
-esto de las funcionalidades mejor 
+esto de las funcionalidades mejor lo hago cuando ya lo terminemos a ver que dejamos y que quitamos
+podes meterte en el ds?
+si voy

@@ -6,8 +6,12 @@ import Calendario from './componentes/Calendario/calendario';
 import Login from './componentes/Auth/Login';
 import Register from './componentes/Auth/Register';
 import { AuthProvider } from './componentes/Auth/authContext';
-import { Navigate } from 'react-router-dom';
-import AdminDashboard from './componentes/Admin/Dashboard';
+/* import { Navigate } from 'react-router-dom'; */
+import Dashboard from './componentes/Admin/Dashboard';
+import Usuarios from './componentes/Admin/ListaUsuarios';
+import Miembros from './componentes/Admin/Miembros';
+
+
 
 function App() {
 
@@ -17,11 +21,13 @@ function App() {
       <div className="container">
         <main>
           <Routes>
-            <Route path='/'element= {<Navigate to="/auth/login" />}/>
+          <Route path="/" element={<Dashboard />} />
+        <Route path="/usuarios" element={<Usuarios />} />
+        <Route path="/miembros" element={<Miembros />} />
+            {/* <Route path='/'element= {<Navigate to="/auth/login" />}/> */}
             <Route path="/auth/login" element={<Login />}/>
             <Route path='/sesion'element= {<Sesion />}/>
             <Route path='/auth/register'element= {<Register />}/>
-            <Route path='/admin'element= {< AdminDashboard/>}/>
             <Route path='/calendario' element={<Calendario />}/>
             </Routes>
         </main>

@@ -1,0 +1,28 @@
+.footer {
+    background-color: #1b1b1b; /* Color de fondo oscuro */
+    color: #ffcc00; /* Texto amarillo */
+    text-align: center;
+    padding: 15px 20px;
+    font-size: 1rem; /* Tamaño de fuente */
+    font-weight: bold;
+    border-top: 2px solid #ffcc00; /* Línea de separación */
+  }
+  
+  .footer p {
+    margin: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .footer {
+      font-size: 0.9rem; /* Reduce el tamaño del texto en pantallas más pequeñas */
+      padding: 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .footer {
+      font-size: 0.8rem;
+      padding: 8px;
+    }
+  }
+  

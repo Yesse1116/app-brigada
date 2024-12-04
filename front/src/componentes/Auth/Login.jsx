@@ -1,23 +1,21 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./authContext";
-import api from "../api/api";
 
 const Login = () => {
   const [correo, setCorreo] = useState("");
   const [contraseña, setContraseña] = useState("");
-  const { login } = useAuth(); // Ejecuta correctamente useAuth()
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post("/auth/login", { correo, contraseña });
-      login(); // Actualiza el estado global
-      alert(response.data.message || "Inicio de sesión exitoso");
-      navigate("/sesion"); // Redirige a la sección protegida
+      await login({ correo, contraseña });
+      alert("Inicio de sesión exitoso");
+      navigate("/sesion");
     } catch (error) {
-      alert("Error al iniciar sesión: " + error.response?.data || error.message);
+      alert("Error al iniciar sesión: " + error.response?.data?.message || error.message);
     }
   };
 
@@ -40,6 +38,7 @@ const Login = () => {
             type="password"
             value={contraseña}
             onChange={(e) => setContraseña(e.target.value)}
+            required
           />
         </div>
         <button type="submit">Iniciar Sesión</button>

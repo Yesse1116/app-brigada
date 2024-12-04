@@ -1,14 +1,28 @@
-import React from 'react';
-import ListaUsuarios from './ListaUsuarios';
+import React from "react";
+import { useAuth } from "../Auth/authContext";
 
+const Dashboard = () => {
+  const { usuario, logout } = useAuth();
 
-const AdminDashboard = () => {
-    return (
-        <div>
-            <h1>Panel de Administración</h1>
-            <ListaUsuarios />
-        </div>
-    );
+  if (!usuario) {
+    return <p>Cargando...</p>;
+  }
+
+  return (
+    <div>
+      <h1>Bienvenido, {usuario.nombre}</h1>
+      <p>Rol: {usuario.rol}</p>
+      <ul>
+        <li>
+          <a href="/usuarios">Gestionar Usuarios</a>
+        </li>
+        <li>
+          <a href="/miembros">Gestionar Miembros</a>
+        </li>
+      </ul>
+      <button onClick={logout}>Cerrar Sesión</button>
+    </div>
+  );
 };
 
-export default AdminDashboard;
+export default Dashboard;

@@ -9,7 +9,7 @@ const usuarioSchema = new mongoose.Schema({
     rol: {
         type: String,
         enum: ['administrador', 'normal'], // Define los roles permitidos
-        default: 'normal', // Asigna el rol por defecto
+        default: 'administrador', // Asigna el rol por defecto
     },
     fechaNacimiento: { 
         type: Date, 
