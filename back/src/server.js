@@ -34,9 +34,10 @@ app.use(session({
 
 // Conexión a MongoDB
 mongoose
-    .connect(process.env.MONGO_URI)
-    .then(() => console.log("Conectado a MongoDB para la App Brigada"))
-    .catch((err) => console.error("Error al conectar:", err));
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("Conectado a MongoDB Atlas"))
+  .catch((err) => console.error("Error al conectar a MongoDB Atlas:", err));
+
 
 // Importar rutas
 const authRoutes = require('./routes/authRoutes');

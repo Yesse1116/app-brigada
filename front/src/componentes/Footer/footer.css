@@ -1,9 +1,9 @@
 .footer {
-    background-color: #1b1b1b; /* Color de fondo oscuro */
-    color: #ffcc00; /* Texto amarillo */
+    background-color: #1b1b1b;
+    color: #ffcc00; 
     text-align: center;
     padding: 15px 20px;
-    font-size: 1rem; /* Tamaño de fuente */
+    font-size: 1rem;
     font-weight: bold;
     border-radius: 10px;
   }
@@ -14,7 +14,7 @@
   
   @media (max-width: 768px) {
     .footer {
-      font-size: 0.9rem; /* Reduce el tamaño del texto en pantallas más pequeñas */
+      font-size: 0.9rem;
       padding: 10px;
     }
   }
