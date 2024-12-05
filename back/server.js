@@ -40,8 +40,8 @@ mongoose
 
 
 // Importar rutas
-const authRoutes = require('./routes/authRoutes');
-const eventRoutes = require('./routes/eventRoutes')
+const authRoutes = require('./src/routes/authRoutes');
+const eventRoutes = require('./src/routes/eventRoutes')
 
 // Registrar rutas
 app.use("/auth", authRoutes);
