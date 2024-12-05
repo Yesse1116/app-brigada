@@ -14,32 +14,37 @@ const Calendario = () => {
   const [showEditForm, setShowEditForm] = useState(false); // Estado para mostrar/ocultar el formulario de edición
   const [selectedEvent, setSelectedEvent] = useState(""); // Estado para el evento seleccionado
 
-  // Cargar los eventos desde el servidor o localStorage
-  useEffect(() => {
-    try {
-      const storedEvents = localStorage.getItem("calendarEvents");
-      if (storedEvents) {
-        setEvents(JSON.parse(storedEvents));
-      } else {
-        api.get("/calendario")
-          .then(response => {
-            setEvents(response.data);
-            localStorage.setItem("calendarEvents", JSON.stringify(response.data));
-          })
-          .catch(error => console.error("Error al cargar eventos desde el servidor:", error));
-      }
-    } catch (error) {
-      console.error("Error al leer eventos de localStorage:", error);
-      setEvents([]);
-    }
-  }, []);
+// Obtener el userId del usuario actual desde localStorage
+const userId = localStorage.getItem("userId");
 
-  // Guardar eventos en localStorage cuando se actualizan
-  useEffect(() => {
-    if (events.length > 0) {
-      localStorage.setItem("calendarEvents", JSON.stringify(events));
-    }
-  }, [events]);
+// Función para manejar eventos en localStorage por usuario
+const getLocalStorageKey = () => `calendarEvents_${userId}`;
+
+// Cargar eventos desde localStorage o servidor
+useEffect(() => {
+  if (!userId) return; // Si no hay usuario logueado, no cargar eventos.
+
+  const storedEvents = localStorage.getItem(getLocalStorageKey());
+  if (storedEvents) {
+    setEvents(JSON.parse(storedEvents));
+  } else {
+    // Si no hay datos en localStorage, intentar cargarlos desde el servidor.
+    api
+      .get(`/calendario?userId=${userId}`)
+      .then((response) => {
+        setEvents(response.data);
+        localStorage.setItem(getLocalStorageKey(), JSON.stringify(response.data));
+      })
+      .catch((error) => console.error("Error al cargar eventos desde el servidor:", error));
+  }
+}, [userId]);
+
+// Guardar eventos en localStorage cuando se actualizan
+useEffect(() => {
+  if (userId) {
+    localStorage.setItem(getLocalStorageKey(), JSON.stringify(events));
+  }
+}, [events, userId]);
 
   // Manejar la creación de un nuevo evento
   const handleDateClick = async (info) => {
@@ -57,12 +62,13 @@ const Calendario = () => {
     }
   };
 
-  // Manejar la eliminación de un evento
+  // Eliminar un evento
   const handleEventClick = async (info) => {
+    const eventId = info.event.extendedProps._id; // Usa el _id desde extendedProps
     if (window.confirm(`¿Eliminar el evento "${info.event.title}"?`)) {
       try {
-        await api.delete(`/calendario/${info.event.id}`);
-        const updatedEvents = events.filter((event) => event._id !== info.event.id);
+        await api.delete(`/calendario/${eventId}`);
+        const updatedEvents = events.filter((event) => event._id !== eventId);
         setEvents(updatedEvents);
       } catch (error) {
         console.error("Error al eliminar el evento:", error);
@@ -155,4 +161,4 @@ const Calendario = () => {
   );
 };
 
-export default Calendario;
+export default Calendario

@@ -1,5 +1,4 @@
 const Usuario = require('../models/usuario');
-const Miembro = require('../models/miembro');
 const bcrypt = require("bcryptjs");
 
 // Procesar inicio de sesión
@@ -74,19 +73,6 @@ exports.procesarRegistro = async (req, res) => {
             fechaNacimiento: new Date(fechaNacimiento),
         });
 
-        const miembroExistente = await Miembro.findOne({ correo });
-        if (!miembroExistente) {
-            await Miembro.create({
-                nombre,
-                correo,
-                fechaNacimiento: new Date(fechaNacimiento),
-                codigo: `M-${Date.now()}`,
-                fechaRegistro: new Date(),
-            });
-        } else if (!miembroExistente.fechaNacimiento) {
-            miembroExistente.fechaNacimiento = new Date(fechaNacimiento);
-            await miembroExistente.save();
-        }
 
         res.status(201).json({
             success: true,

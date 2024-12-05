@@ -7,9 +7,6 @@ import Login from './componentes/Auth/Login';
 import Register from './componentes/Auth/Register';
 import { AuthProvider } from './componentes/Auth/authContext';
 import { Navigate } from 'react-router-dom';
-import ProtectedRoute from './componentes/admin/rutaProtejida';
-import MiembrosAdmin from './componentes/admin/miembrosAdmin';
-import NoAutorizado from './componentes/admin/noAutorizado';
 
 
 function App() {
@@ -21,19 +18,10 @@ function App() {
         <main>
           <Routes>
             <Route path='/'element= {<Navigate to="/auth/login" />}/>
-            <Route
-                path="/admin/miembros"
-                element={
-                    <ProtectedRoute adminOnly>
-                        <MiembrosAdmin />
-                    </ProtectedRoute>
-                }
-            />
             <Route path="/auth/login" element={<Login />}/>
             <Route path='/sesion'element= {<Sesion />}/>
             <Route path='/auth/register'element= {<Register />}/>
             <Route path='/calendario' element={<Calendario />}/>
-            <Route path='/no-autorizado' element={<NoAutorizado />}/>
             </Routes>
         </main>
         <Footer />

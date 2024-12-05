@@ -9,11 +9,11 @@ Estructura del Proyecto
 app-brigada/
 
 src/: Contiene el código fuente de la aplicación.
-app.js: Archivo principal del servidor.
+server.js: Archivo principal del servidor.
 routes/: Carpeta para las rutas de la aplicación.
 models/: Carpeta para los modelos de datos (Mongoose).
-controllers/: Carpeta para los controladores de la lógica de negocio.
-views/: Carpeta para las vistas (si se utiliza un motor de plantillas).
+controllers/: Carpeta para los controladores de la lógica del app.
+views/: Carpeta para las vistas.
 .env: Archivo de variables de entorno.
 .gitignore: Archivos y carpetas que Git debe ignorar.
 package.json: Archivo de configuración de npm.

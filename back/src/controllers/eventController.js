@@ -28,9 +28,11 @@ const createEvent = async (req, res) => {
 const deleteEvent = async (req, res) => {
   try {
     const { id } = req.params;
+    console.log("ID recibido para eliminar:", id); // Depuración
     await Event.findByIdAndDelete(id);
     res.status(204).send();
   } catch (error) {
+    console.error("Error al eliminar el evento:", error);
     res.status(500).json({ message: "Error al eliminar el evento", error });
   }
 };

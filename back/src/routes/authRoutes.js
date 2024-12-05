@@ -7,7 +7,6 @@ const {
     cerrarSesion,
 } = require('../controllers/authController');
 
-const { verificarAdministrador } = require('../middleware/authMiddleware');
 
 // Rutas accesibles sin iniciar sesión
 router.post('/login', procesarLogin); // Procesar login

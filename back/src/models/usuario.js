@@ -6,11 +6,6 @@ const usuarioSchema = new mongoose.Schema({
     nombre: { type: String, required: true },
     correo: { type: String, required: true, unique: true },
     contraseña: { type: String, required: true },
-    rol: {
-        type: String,
-        enum: ['administrador', 'normal'], // Define los roles permitidos
-        default: 'normal', // Asigna el rol por defecto
-    },
     fechaNacimiento: { 
         type: Date, 
         required: false, 
